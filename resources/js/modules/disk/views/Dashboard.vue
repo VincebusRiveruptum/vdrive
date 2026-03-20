@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/shared/layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useFileStore } from '../store/fileStore';
 import { useFileSystem } from '../composables/useFileSystem';
 
@@ -15,22 +15,22 @@ const props = defineProps({
 const store = useFileStore();
 const { navigateToFolder, uploadFile, createFolder } = useFileSystem();
 
-onMounted(() => {
+const updateStore = () => {
     store.setInitialData({
-        files: props.initialFiles || [
-            { id: 1, name: 'presupuesto_2026.pdf', size: 2516582, type: 'PDF', updated: 'hace 2 horas' },
-            { id: 2, name: 'foto_servidor.jpg', size: 4300000, type: 'Imagen', updated: 'ayer' },
-            { id: 3, name: 'configuracion_docker.txt', size: 12288, type: 'Texto', updated: 'hace 3 días' },
-        ],
-        folders: props.initialFolders || [
-            { id: 1, name: 'Documentos' },
-            { id: 2, name: 'Imágenes' },
-            { id: 3, name: 'Proyectos' },
-        ],
-        storageUsed: props.storageUsed,
-        storageLimit: props.storageLimit,
+        files: props.initialFiles || [],
+        folders: props.initialFolders || [],
+        storageUsed: props.storageUsed || 0,
+        storageLimit: props.storageLimit || (16 * 1024 * 1024 * 1024),
     });
-});
+};
+
+onMounted(updateStore);
+
+watch(
+    () => [props.initialFiles, props.initialFolders],
+    updateStore,
+    { deep: true }
+);
 </script>
 
 <template>

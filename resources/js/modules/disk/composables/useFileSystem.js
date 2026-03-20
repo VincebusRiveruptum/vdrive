@@ -5,9 +5,11 @@ export function useFileSystem() {
     const store = useFileStore();
 
     const navigateToFolder = (folderId) => {
-        // En una implementación real, esto haría una petición Inertia
-        console.log('Navegando a carpeta:', folderId);
-        // router.get(route('dashboard', { folder: folderId }));
+        router.get('/dashboard', { folder: folderId }, {
+            preserveState: true,
+            replace: true,
+            only: ['initialFolders', 'initialFiles'],
+        });
     };
 
     const uploadFile = (file) => {

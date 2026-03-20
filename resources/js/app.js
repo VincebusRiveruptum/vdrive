@@ -14,14 +14,15 @@ createInertiaApp({
     resolve: (name) => {
         const pages = import.meta.glob([
             './Pages/**/*.vue',
-            './modules/**/views/**/*.vue'
+            './modules/**/*.vue'
         ]);
         
+        // Intentar resolver desde modules primero
         let path = `./modules/${name}.vue`;
+        
+        // Si no existe en modules, intentar en Pages
         if (!pages[path]) {
-            // Buscar en la estructura modular si no está en Pages
-            const modularPath = Object.keys(pages).find(p => p.endsWith(`/views/${name}.vue`));
-            if (modularPath) path = modularPath;
+            path = `./Pages/${name}.vue`;
         }
 
         return resolvePageComponent(path, pages);
