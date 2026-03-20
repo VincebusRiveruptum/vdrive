@@ -29,14 +29,6 @@ const updateStore = () => {
     });
 };
 
-onMounted(updateStore);
-
-watch(
-    () => [props.initialFiles, props.initialFolders],
-    updateStore,
-    { deep: true }
-);
-
 const items = computed(() => {
     const folders = store.folders
         .map(f => ({ ...f, isFolder: true, type: 'Carpeta', size: '-', updated: '-' }))
@@ -66,6 +58,14 @@ const handleCreateFolder = () => {
         createFolder(name, props.currentFolderId);
     }
 };
+
+onMounted(updateStore);
+
+watch(
+    () => [props.initialFiles, props.initialFolders],
+    updateStore,
+    { deep: true }
+);
 </script>
 
 <template>
@@ -125,7 +125,6 @@ const handleCreateFolder = () => {
                 </div>
             </div>
         </template>
-...
 
         <div class="space-y-4">
             <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden shadow-sm">

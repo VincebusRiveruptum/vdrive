@@ -8,7 +8,7 @@ export function useFileSystem() {
         router.get('/dashboard', { folder: folderId }, {
             preserveState: true,
             replace: true,
-            only: ['initialFolders', 'initialFiles'],
+            only: ['initialFolders', 'initialFiles', 'breadcrumbs', 'currentFolderId', 'storageUsed'],
         });
     };
 
