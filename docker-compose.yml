@@ -1,0 +1,27 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vincebus-ftp-app
+    restart: unless-stopped
+    ports:
+      - "8001:8000"
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    volumes:
+      - .:/var/www/html
+  node:
+    image: node:20-alpine
+    container_name: vincebus-ftp-node
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    command: npm run dev
+    ports:
+      - "5173:5173"
+    networks:
+      - vincebus-network
+
+networks:
+  vincebus-network:
+    driver: bridge
