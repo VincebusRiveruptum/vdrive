@@ -1,15 +1,26 @@
 @import "tailwindcss";
 
-@theme {
-  --color-main-bg: #ffffff;
-  --color-main-surface: #f9fafb;
-  --color-main-border: #e2e8f0;
+/* Datatype */
+@font-face {
+    font-family: 'Datatype';
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url("../fonts/datatype.ttf") format("truetype");
 }
 
-@custom-variant dark (&:where(.dark, [data-theme="dark"] *));
+@theme {
+    --font-sans: "Datatype", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --color-main-bg: #ffffff;
+    --color-main-surface: #f9fafb;
+    --color-main-border: #e2e8f0;
+}
 
-.dark {
-  --color-main-bg: #09090b;
-  --color-main-surface: #121214;
-  --color-main-border: #27272a;
+/* Detección automática del sistema */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-main-bg: #09090b;
+    --color-main-surface: #121214;
+    --color-main-border: #27272a;
+  }
 }
