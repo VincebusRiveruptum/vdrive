@@ -11,11 +11,21 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) =>
-        resolvePageComponent(
-            `./Pages/${name}.vue`,
-            import.meta.glob('./Pages/**/*.vue'),
-        ),
+    resolve: (name) => {
+        const pages = import.meta.glob([
+            './Pages/**/*.vue',
+            './modules/**/views/**/*.vue'
+        ]);
+        
+        let path = `./modules/${name}.vue`;
+        if (!pages[path]) {
+            // Buscar en la estructura modular si no está en Pages
+            const modularPath = Object.keys(pages).find(p => p.endsWith(`/views/${name}.vue`));
+            if (modularPath) path = modularPath;
+        }
+
+        return resolvePageComponent(path, pages);
+    },
     setup({ el, App, props, plugin }) {
         const pinia = createPinia();
         return createApp({ render: () => h(App, props) })

@@ -20,6 +20,13 @@ Respecto al front end:
 
 - Se utilizara el patron de composables, store con Pinia si es necesario
 - Se utilizara la sintaxis de Composition API Script setup
+- La estructura de archivos es la siguiente:
+    -frontend
+        - module
+            - store
+            - composables
+            - components
+            - views
 
 ## Analisis segun Gemini
 

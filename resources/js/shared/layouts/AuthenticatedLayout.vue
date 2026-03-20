@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import Dropdown from '@/Components/Dropdown.vue';
-import DropdownLink from '@/Components/DropdownLink.vue';
+import ApplicationLogo from '../ApplicationLogo.vue';
+import Dropdown from '../Dropdown.vue';
+import DropdownLink from '../DropdownLink.vue';
 import { Link } from '@inertiajs/vue3';
-import { useFileStore } from '@/Stores/fileStore';
+import { useFileStore } from '../../modules/disk/store/fileStore';
 
 const store = useFileStore();
 const showingNavigationDropdown = ref(false);

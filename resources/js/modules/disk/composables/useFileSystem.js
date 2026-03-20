@@ -1,4 +1,4 @@
-import { useFileStore } from '@/Stores/fileStore';
+import { useFileStore } from '../store/fileStore';
 import { router } from '@inertiajs/vue3';
 
 export function useFileSystem() {

@@ -1,9 +1,9 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AuthenticatedLayout from '@/shared/layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
-import { useFileStore } from '@/Stores/fileStore';
-import { useFileSystem } from '@/Composables/useFileSystem';
+import { useFileStore } from '../store/fileStore';
+import { useFileSystem } from '../composables/useFileSystem';
 
 const props = defineProps({
     initialFiles: Array,
