@@ -1,0 +1,32 @@
+# Stage 1: Build resources
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY . .
+RUN npm install && npm run build
+
+# Stage 2: Production PHP
+FROM php:8.4-fpm-alpine
+
+RUN apk add --no-cache \
+    curl \
+    libpng-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    oniguruma-dev \
+    libzip-dev \
+    nginx
+
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+
+WORKDIR /var/www/html
+COPY --from=build /app .
+
+# Configurar permisos
+RUN chown -R www-data:www-data storage bootstrap/cache
+
+# Copiar configuracion de Nginx (pendiente crear el archivo)
+# COPY .docker/nginx.conf /etc/nginx/nginx.conf
+
+USER www-data
+CMD ["php-fpm"]

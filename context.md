@@ -16,6 +16,11 @@ El sistema será desplegado en un equipo con Debian Trixie, 16 GB de RAM y un pr
 
 El entorno de desarrollo no tiene PHP instalado, ya que es WSL. Creo que los primeros pasos seria crear el contenedor del proyecto con PHP/Composer para asi construirlo desde ahi
 
+Respecto al front end: 
+
+- Se utilizara el patron de composables, store con Pinia si es necesario
+- Se utilizara la sintaxis de Composition API Script setup
+
 ## Analisis segun Gemini
 
 El proyecto Vincebus's FTP es una excelente iniciativa de soberanía digital. Aquí tienes mi análisis técnico y opinión sobre la propuesta:

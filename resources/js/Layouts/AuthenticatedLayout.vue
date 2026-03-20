@@ -4,7 +4,9 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import { Link } from '@inertiajs/vue3';
+import { useFileStore } from '@/Stores/fileStore';
 
+const store = useFileStore();
 const showingNavigationDropdown = ref(false);
 const isSidebarOpen = ref(true);
 
@@ -52,12 +54,12 @@ const navItems = [
             <div v-if="isSidebarOpen" class="p-4 m-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700/50">
                 <div class="flex justify-between text-xs mb-2">
                     <span class="text-gray-500">Almacenamiento</span>
-                    <span class="font-semibold text-gray-700 dark:text-gray-300">75%</span>
+                    <span class="font-semibold text-gray-700 dark:text-gray-300">{{ Math.round(store.storagePercentage) }}%</span>
                 </div>
                 <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
-                    <div class="bg-indigo-500 h-1.5 rounded-full w-3/4"></div>
+                    <div class="bg-indigo-500 h-1.5 rounded-full transition-all duration-300" :style="{ width: store.storagePercentage + '%' }"></div>
                 </div>
-                <p class="text-[10px] text-gray-400 mt-2 text-center">12.5 GB de 16 GB usados</p>
+                <p class="text-[10px] text-gray-400 mt-2 text-center">{{ store.formattedStorageUsed }} de {{ store.formattedStorageLimit }} usados</p>
             </div>
         </aside>
 
