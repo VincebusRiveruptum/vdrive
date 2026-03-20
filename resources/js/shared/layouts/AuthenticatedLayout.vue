@@ -18,7 +18,7 @@ const navItems = [
 </script>
 
 <template>
-    <div class="flex h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans overflow-hidden">
+    <div class="flex h-screen bg-main-bg text-gray-900 dark:text-gray-100 font-sans overflow-hidden">
         <!-- Sidebar -->
         <aside 
             :class="isSidebarOpen ? 'w-64' : 'w-20'"
@@ -27,7 +27,7 @@ const navItems = [
             <div class="p-6 flex items-center gap-3">
                 <Link :href="route('dashboard')" class="flex items-center gap-2">
                     <ApplicationLogo class="h-8 w-8 fill-current text-indigo-600 dark:text-indigo-400" />
-                    <span v-if="isSidebarOpen" class="text-xl font-bold tracking-tight">Vincebus FTP</span>
+                    <span v-if="isSidebarOpen" class="text-xl font-bold tracking-tight">VDRIVE</span>
                 </Link>
             </div>
 
