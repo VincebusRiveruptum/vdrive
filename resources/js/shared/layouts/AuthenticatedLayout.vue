@@ -22,7 +22,7 @@ const navItems = [
         <!-- Sidebar -->
         <aside 
             :class="isSidebarOpen ? 'w-64' : 'w-20'"
-            class="hidden md:flex flex-col border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-all duration-300 ease-in-out"
+            class="hidden md:flex flex-col bg-aside transition-all duration-300 ease-in-out"
         >
             <div class="p-6 flex items-center gap-3">
                 <Link :href="route('dashboard')" class="flex items-center gap-2">
@@ -66,7 +66,7 @@ const navItems = [
         <!-- Main Content Area -->
         <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
             <!-- Header -->
-            <header class="h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-10">
+            <header class="h-16 flex items-center justify-between px-6  border-gray-200 dark:border-gray-800 bg-header-bg backdrop-blur-md z-10">
                 <div class="flex items-center gap-4 flex-1">
                     <button @click="isSidebarOpen = !isSidebarOpen" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg md:block hidden text-gray-500">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor font-bold">
