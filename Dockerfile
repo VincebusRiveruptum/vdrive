@@ -9,9 +9,10 @@ RUN apk add --no-cache \
     unzip \
     git \
     oniguruma-dev \
-    libzip-dev
+    libzip-dev \
+    postgresql-dev
 
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+RUN docker-php-ext-install pdo_pgsql mbstring exif pcntl bcmath gd zip
 
 # Configurar límites de subida de PHP
 RUN { \
@@ -28,4 +29,9 @@ WORKDIR /var/www/html
 
 # Usuario para evitar problemas de permisos
 RUN addgroup -g 1000 laravel && adduser -G laravel -u 1000 -D laravel
+
+# Asegurar permisos de storage y cache
+RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache && \
+    chown -R laravel:laravel /var/www/html/storage /var/www/html/bootstrap/cache
+
 USER laravel

@@ -12,16 +12,13 @@ services:
       - vincebus-network
 
   db:
-    image: mysql:8.4
+    image: postgres:14
     container_name: vincebus-ftp-db-prod
     restart: always
-    environment:
-      MYSQL_DATABASE: vincebus_ftp
-      MYSQL_ROOT_PASSWORD: root_secure_password
-      MYSQL_USER: vincebus
-      MYSQL_PASSWORD: secure_password
+    env_file:
+      - ./.env
     volumes:
-      - mysql_prod_data:/var/lib/mysql
+      - postgres_prod_data:/var/lib/postgresql/data
     networks:
       - vincebus-network
 
@@ -30,4 +27,4 @@ networks:
     driver: bridge
 
 volumes:
-  mysql_prod_data:
+  postgres_prod_data:
