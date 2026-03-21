@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -13,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasRoles;
@@ -45,5 +45,23 @@ class User extends Authenticatable
     public function files()
     {
         return $this->hasMany(File::class);
+    }
+
+    /**
+     * Get the active verification code for the user.
+     */
+    public function verificationCode()
+    {
+        return $this->hasOne(EmailVerificationCode::class);
+    }
+
+    /**
+     * Send the email verification notification.
+     * Overrides the default MustVerifyEmail trait method.
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $code = EmailVerificationCode::generateFor($this);
+        $this->notify(new \App\Notifications\VerificationCodeNotification($code->code));
     }
 }
