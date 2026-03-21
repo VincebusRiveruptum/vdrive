@@ -46,3 +46,15 @@ Prevención de Pérdida (La Motivación): Si el objetivo es que no se pierdan ar
 Seguridad: Al ser una "nube personal", la superficie de ataque es alta. Usar spatie/laravel-permission es excelente para la lógica interna, pero asegúrate de implementar HTTPS obligatorio (Let's Encrypt) y considera usar Fail2Ban en el equipo Debian para proteger el acceso SSH.
 Resumen
 La idea es muy sólida y necesaria. La arquitectura de software está perfectamente elegida. Mi única preocupación es la edad del hardware y la estrategia de respaldo físico.
+
+## Update 21.03.2026
+
+Actualemtne el proyecto esta montado en el servidor y desplegado publicamente. Se hizo
+modifciaciones a nivel de configuracion de nginx y el contendor de produccion para usar
+HTTPS en vez de HTTP, funcionando correctamente.
+
+Tambiien se implemento un makefile para poder desplegar localemnte en un entorno de desarrollo o en produccion.
+
+TODO:
+- Hace falta implementar un metodo de registro mas seguro mediante verificacion. Se me
+ocurre lo siguiente: Durante el proceso de registro, luego que el usuario haya completado todos los datos requeridos. Una vez intentando iniciar sesion por primera vez se le solicitara un codigo de verificacion que le llegara al email, una vez ingresado correctamente el usuario podra utilizar la plataforma.
