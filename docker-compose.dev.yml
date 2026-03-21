@@ -3,7 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: vincebus-ftp-app
+    container_name: vdrive-app
+    env_file:
+      - ./.dev.env
     restart: unless-stopped
     ports:
       - "8001:8000"
@@ -11,10 +13,10 @@ services:
     volumes:
       - .:/var/www/html
     networks:
-      - vincebus-network
+      - vdrive-network
   node:
     image: node:20-alpine
-    container_name: vincebus-ftp-node
+    container_name: vdrive-node
     volumes:
       - .:/var/www/html
     working_dir: /var/www/html
@@ -22,21 +24,27 @@ services:
     ports:
       - "5173:5173"
     networks:
-      - vincebus-network
-
+      - vdrive-network
   db:
     image: postgres:14
-    container_name: vincebus-ftp-db
+    container_name: vdrive-db
     restart: unless-stopped
     env_file:
-      - ./.env
+      - ./.dev.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - vincebus-network
-
+      - vdrive-network
+  mailpit:
+    image: axllent/mailpit
+    container_name: vdrive-mailpit
+    ports:
+      - 8025:8025
+      - 1025:1025
+    networks:
+      - vdrive-network
 networks:
-  vincebus-network:
+  vdrive-network:
     driver: bridge
 
 volumes:

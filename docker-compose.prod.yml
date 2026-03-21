@@ -3,19 +3,21 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod
-    container_name: vincebus-ftp-prod
+    container_name: vdrive-prod
     restart: always
+    env_file:
+      - ./.prod.env
     environment:
       APP_ENV: production
       APP_DEBUG: "false"
     volumes:
       - app_data:/var/www/html
     networks:
-      - vincebus-network
+      - vdrive-network
 
   nginx:
     image: nginx:alpine
-    container_name: vincebus-ftp-nginx-prod
+    container_name: vdrive-nginx-prod
     restart: always
     ports:
       - "80:80"
@@ -25,23 +27,23 @@ services:
     depends_on:
       - app
     networks:
-      - vincebus-network
+      - vdrive-network
 
   db:
     image: postgres:14
-    container_name: vincebus-ftp-db-prod
+    container_name: vdrive-db-prod
     restart: always
     env_file:
-      - ./.env.production
+      - ./.prod.env
     volumes:
       - postgres_prod_data:/var/lib/postgresql/data
     networks:
-      - vincebus-network
+      - vdrive-network
 
 networks:
-  vincebus-network:
+  vdrive-network:
     driver: bridge
 
 volumes:
   postgres_prod_data:
-  app_data:  # ← volumen compartido entre app y nginx
+  app_data: # ← volumen compartido entre app y nginx
