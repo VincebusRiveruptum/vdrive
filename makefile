@@ -17,6 +17,6 @@ prod-down:
 prod-migrate:
 	@docker exec -i vdrive-prod php artisan migrate
 prod-start:
-	@docker exec -i vdrive-prod php artisan migrate --seed
+	@docker exec -i vdrive-prod php artisan migrate --seed --force
 prod-tinker:
 	@docker exec -it vdrive-prod php artisan tinker
