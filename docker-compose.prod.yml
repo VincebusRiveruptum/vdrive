@@ -8,6 +8,22 @@ services:
     environment:
       APP_ENV: production
       APP_DEBUG: "false"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - vincebus-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: vincebus-ftp-nginx-prod
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./nginx.prod.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
     networks:
       - vincebus-network
 
