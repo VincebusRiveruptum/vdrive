@@ -2,7 +2,11 @@
 
 namespace Tests\Feature\Auth;
 
+use App\Models\EmailVerificationCode;
+use App\Models\User;
+use App\Notifications\VerificationCodeNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
@@ -18,6 +22,8 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
+        Notification::fake();
+
         $response = $this->post('/register', [
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -25,7 +31,18 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password',
         ]);
 
+        $response->assertRedirect(route('verification.notice', absolute: false));
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+
+        // Verify a code was generated
+        $this->assertDatabaseHas('email_verification_codes', [
+            'user_id' => User::first()->id,
+        ]);
+
+        // Verify notification was sent
+        Notification::assertSentTo(
+            [User::first()],
+            VerificationCodeNotification::class
+        );
     }
 }
