@@ -10,6 +10,7 @@ dev-tinker:
 	@docker exec -it vdrive-app php artisan tinker
 
 prod-up :
+	@docker compose -f docker-compose.prod.yml down -v
 	@docker compose -f docker-compose.prod.yml up -d --build --force-recreate
 prod-down:
 	@docker compose -f docker-compose.prod.yml down
