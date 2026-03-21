@@ -16,7 +16,7 @@ services:
     container_name: vincebus-ftp-db-prod
     restart: always
     env_file:
-      - ./.env
+      - ./.env.production
     volumes:
       - postgres_prod_data:/var/lib/postgresql/data
     networks:
