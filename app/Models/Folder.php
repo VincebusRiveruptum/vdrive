@@ -37,4 +37,16 @@ class Folder extends Model
     {
         return $this->hasMany(File::class);
     }
+
+    public function getPhysicalPathAttribute()
+    {
+        $parts = [];
+        $current = $this;
+        while ($current) {
+            // Slugify directory names specifically for filesystem safety
+            array_unshift($parts, \Illuminate\Support\Str::slug($current->name, '-', 'es'));
+            $current = $current->parent;
+        }
+        return "users/{$this->user_id}/files/" . implode('/', $parts);
+    }
 }

@@ -54,6 +54,37 @@ export function useFileSystem() {
         }
     };
 
+    const renameFile = (fileId, newName) => {
+        router.put(route('disk.file.rename', { file: fileId }), {
+            name: newName
+        }, {
+            preserveScroll: true
+        });
+    };
+
+    const renameFolder = (folderId, newName) => {
+        router.put(route('disk.folder.rename', { folder: folderId }), {
+            name: newName
+        }, {
+            preserveScroll: true
+        });
+    };
+
+    const pasteItem = (targetFolderId = null) => {
+        if (!store.clipboard.item) return;
+
+        router.post(route('disk.copy'), {
+            id: store.clipboard.item.id,
+            type: store.clipboard.type,
+            target_folder_id: targetFolderId
+        }, {
+            preserveScroll: true,
+            onSuccess: () => {
+                store.clipboard = { type: null, item: null, action: null };
+            }
+        });
+    };
+
     return {
         navigateToFolder,
         uploadFile,
@@ -61,5 +92,8 @@ export function useFileSystem() {
         createFolder,
         deleteFile,
         deleteFolder,
+        renameFile,
+        renameFolder,
+        pasteItem,
     };
 }

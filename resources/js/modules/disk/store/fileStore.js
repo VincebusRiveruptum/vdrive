@@ -8,6 +8,8 @@ export const useFileStore = defineStore('file', () => {
     const storageLimit = ref(16 * 1024 * 1024 * 1024); // 16GB in bytes
     const storageUsed = ref(12.5 * 1024 * 1024 * 1024); // 12.5GB in bytes
 
+    const clipboard = ref({ type: null, item: null, action: null });
+
     const storagePercentage = computed(() => {
         return (storageUsed.value / storageLimit.value) * 100;
     });
@@ -39,6 +41,7 @@ export const useFileStore = defineStore('file', () => {
         storagePercentage,
         formattedStorageUsed,
         formattedStorageLimit,
+        clipboard,
         setInitialData,
     };
 });

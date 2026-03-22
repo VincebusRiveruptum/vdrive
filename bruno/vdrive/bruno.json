@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "vdrive",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
